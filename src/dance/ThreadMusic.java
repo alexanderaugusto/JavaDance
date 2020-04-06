@@ -10,6 +10,8 @@ import java.applet.AudioClip;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 
 /**
@@ -19,16 +21,31 @@ import javax.swing.JButton;
 public class ThreadMusic extends Thread {
 
     private String music;
+    private boolean fim;
+    private AudioClip songPlay;
 
-    public ThreadMusic(String music) {
+    public ThreadMusic(String music, boolean fim) {
         this.music = music;
+        this.fim = fim;
     }
 
     @Override
     public void run() {
-        URL song = ThreadMusic.class.getResource(music + ".wav");
-        AudioClip songPlay = Applet.newAudioClip(song);
+        
+        while (fim) {
+            URL song = ThreadMusic.class.getResource(music + ".wav");
+            songPlay = Applet.newAudioClip(song);
 
-        songPlay.play();
+            songPlay.play();
+
+            try {
+                Thread.sleep(180000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(ThreadMusic.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        songPlay.stop();
+
     }
 }
