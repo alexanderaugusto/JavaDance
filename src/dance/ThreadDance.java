@@ -28,6 +28,7 @@ public class ThreadDance extends Thread {
         this.pista = pista;
         this.tamanhoX = tamanhoX;
         this.tamanhoY = tamanhoY;
+
     }
 
     @Override
@@ -40,11 +41,12 @@ public class ThreadDance extends Thread {
 
             Random r = new Random();
             int n = 0;
+
             while (character.isVisible()) {
                 n = r.nextInt(9);
-                
+
                 // Mexe no eixo X
-                if (character.getX() + tamanhoX < pista.getWidth()) {
+                if (character.getX() + tamanhoX < pista.getWidth() && character.getX() > 0) {
 
                     if (n <= 2) {
                         character.setLocation(character.getX() + n, character.getY());
@@ -62,10 +64,12 @@ public class ThreadDance extends Thread {
 
                 } else {
                     character.setVisible(false);
+                    character.setVisible(true);
+                    pista.repaint();
                 }
-                
+
                 // Mexe no eixo X
-                if (character.getY() < pista.getHeight() && character.getY() > 300 ) {
+                if (character.getY() < pista.getHeight() && character.getY() > 300) {
 
                     if (n > 4 && n <= 6) {
                         character.setLocation(character.getX(), character.getY() + n);
@@ -82,6 +86,8 @@ public class ThreadDance extends Thread {
                     }
                 } else {
                     character.setVisible(false);
+                    character.setVisible(true);
+                    pista.repaint();
                 }
 
             }
