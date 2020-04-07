@@ -5,8 +5,12 @@
  */
 package dance;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.io.File;
+import javax.swing.ImageIcon;
+import javax.swing.JComponent;
+import javax.swing.TransferHandler;
 
 /**
  *
@@ -14,18 +18,37 @@ import java.awt.event.ActionListener;
  */
 public class DanceFloor extends javax.swing.JFrame {
 
+    ThreadMusic music;
+    Boolean musicEnable = true;
+    ClassLoader cl = getClass().getClassLoader();
+    File musicSelected = new File(cl.getResource("./music/eletronic.wav").getFile());
+
     /**
      * Creates new form DanceFloor
      */
     public DanceFloor() {
         initComponents();
 
-        anime.setVisible(false);
-        duende.setVisible(false);
-        charmander.setVisible(false);
-        shrek.setVisible(false);
-        simpsons.setVisible(false);
-        spider_man.setVisible(false);
+        char1.setVisible(false);
+        char3.setVisible(false);
+        char2.setVisible(false);
+        char4.setVisible(false);
+        char5.setVisible(false);
+        char6.setVisible(false);
+
+        music = new ThreadMusic(musicSelected.getName(), musicSelected.getPath());
+        music.start();
+    }
+
+    private void changeSelectedMusic(String musicPath) {
+        this.musicSelected = new File(cl.getResource(musicPath).getFile());
+
+        music.stopAudio();
+        music = new ThreadMusic(musicSelected.getName(), musicSelected.getPath());
+
+        if (musicEnable) {
+            music.start();
+        }
     }
 
     /**
@@ -38,24 +61,23 @@ public class DanceFloor extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        spider_man = new javax.swing.JLabel();
-        simpsons = new javax.swing.JLabel();
-        shrek = new javax.swing.JLabel();
-        duende = new javax.swing.JLabel();
-        charmander = new javax.swing.JLabel();
-        anime = new javax.swing.JLabel();
+        char6 = new javax.swing.JLabel();
+        char5 = new javax.swing.JLabel();
+        char4 = new javax.swing.JLabel();
+        char3 = new javax.swing.JLabel();
+        char2 = new javax.swing.JLabel();
+        char1 = new javax.swing.JLabel();
         menu = new javax.swing.JPanel();
         title_panel = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         options = new javax.swing.JPanel();
-        anime_img = new javax.swing.JLabel();
-        charmander_img = new javax.swing.JLabel();
-        duende_img = new javax.swing.JLabel();
-        shrek_img = new javax.swing.JLabel();
-        simpsons_img = new javax.swing.JLabel();
-        spider_man_img = new javax.swing.JLabel();
-        botao_play = new javax.swing.JLabel();
-        botao_stop = new javax.swing.JLabel();
+        char1_img = new javax.swing.JLabel();
+        char2_img = new javax.swing.JLabel();
+        char3_img = new javax.swing.JLabel();
+        char4_img = new javax.swing.JLabel();
+        char5_img = new javax.swing.JLabel();
+        char6_img = new javax.swing.JLabel();
+        button_play_stop = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
@@ -66,27 +88,31 @@ public class DanceFloor extends javax.swing.JFrame {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        spider_man.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gif/spider_man.gif"))); // NOI18N
-        jPanel1.add(spider_man, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 460, 150, 150));
+        char6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gif/spider_man.gif"))); // NOI18N
+        jPanel1.add(char6, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 460, 150, 150));
 
-        simpsons.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gif/simpsons.gif"))); // NOI18N
-        jPanel1.add(simpsons, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 480, 109, 150));
+        char5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gif/simpsons.gif"))); // NOI18N
+        jPanel1.add(char5, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 480, 109, 150));
 
-        shrek.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        shrek.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gif/shrek.gif"))); // NOI18N
-        jPanel1.add(shrek, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 450, 120, 150));
+        char4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        char4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gif/shrek.gif"))); // NOI18N
+        jPanel1.add(char4, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 450, 120, 150));
 
-        duende.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gif/duende.gif"))); // NOI18N
-        jPanel1.add(duende, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 470, 140, 150));
+        char3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gif/duende.gif"))); // NOI18N
+        jPanel1.add(char3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 470, 140, 150));
 
-        charmander.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gif/charmander.gif"))); // NOI18N
-        jPanel1.add(charmander, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 430, 140, 150));
+        char2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gif/charmander.gif"))); // NOI18N
+        jPanel1.add(char2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 430, 140, 150));
 
-        anime.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gif/anime.gif"))); // NOI18N
-        jPanel1.add(anime, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 480, 109, 150));
+        char1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gif/anime.gif"))); // NOI18N
+        jPanel1.add(char1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 480, 109, 150));
 
-        jLabel5.setFont(new java.awt.Font("Leelawadee UI", 1, 24)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(102, 0, 102));
+        menu.setBackground(new java.awt.Color(82, 160, 17));
+
+        title_panel.setBackground(new java.awt.Color(82, 160, 17));
+
+        jLabel5.setFont(new java.awt.Font("Leelawadee UI", 1, 26)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(69, 0, 73));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Bailão do SO");
 
@@ -99,67 +125,70 @@ public class DanceFloor extends javax.swing.JFrame {
         title_panelLayout.setVerticalGroup(
             title_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(title_panelLayout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
-        anime_img.setBackground(new java.awt.Color(255, 255, 255));
-        anime_img.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/anime.png"))); // NOI18N
-        anime_img.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        anime_img.setOpaque(true);
-        anime_img.addMouseListener(new java.awt.event.MouseAdapter() {
+        options.setBackground(new java.awt.Color(82, 160, 17));
+
+        char1_img.setBackground(new java.awt.Color(255, 255, 255));
+        char1_img.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/char1.png"))); // NOI18N
+        char1_img.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        char1_img.setOpaque(true);
+        char1_img.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                anime_imgMouseClicked(evt);
+                char1_imgMouseClicked(evt);
             }
         });
 
-        charmander_img.setBackground(new java.awt.Color(255, 255, 255));
-        charmander_img.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/charmander.png"))); // NOI18N
-        charmander_img.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        charmander_img.setOpaque(true);
-        charmander_img.addMouseListener(new java.awt.event.MouseAdapter() {
+        char2_img.setBackground(new java.awt.Color(255, 255, 255));
+        char2_img.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/char2.png"))); // NOI18N
+        char2_img.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        char2_img.setOpaque(true);
+        char2_img.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                charmander_imgMouseClicked(evt);
+                char2_imgMouseClicked(evt);
             }
         });
 
-        duende_img.setBackground(new java.awt.Color(255, 255, 255));
-        duende_img.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/duende.png"))); // NOI18N
-        duende_img.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        duende_img.setOpaque(true);
-        duende_img.addMouseListener(new java.awt.event.MouseAdapter() {
+        char3_img.setBackground(new java.awt.Color(255, 255, 255));
+        char3_img.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/char3.png"))); // NOI18N
+        char3_img.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        char3_img.setOpaque(true);
+        char3_img.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                duende_imgMouseClicked(evt);
+                char3_imgMouseClicked(evt);
             }
         });
 
-        shrek_img.setBackground(new java.awt.Color(255, 255, 255));
-        shrek_img.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/shrek.png"))); // NOI18N
-        shrek_img.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        shrek_img.setOpaque(true);
-        shrek_img.addMouseListener(new java.awt.event.MouseAdapter() {
+        char4_img.setBackground(new java.awt.Color(255, 255, 255));
+        char4_img.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/char4.png"))); // NOI18N
+        char4_img.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        char4_img.setOpaque(true);
+        char4_img.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                shrek_imgMouseClicked(evt);
+                char4_imgMouseClicked(evt);
             }
         });
 
-        simpsons_img.setBackground(new java.awt.Color(255, 255, 255));
-        simpsons_img.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/simpsons.png"))); // NOI18N
-        simpsons_img.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        simpsons_img.setOpaque(true);
-        simpsons_img.addMouseListener(new java.awt.event.MouseAdapter() {
+        char5_img.setBackground(new java.awt.Color(255, 255, 255));
+        char5_img.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/char5.png"))); // NOI18N
+        char5_img.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        char5_img.setOpaque(true);
+        char5_img.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                simpsons_imgMouseClicked(evt);
+                char5_imgMouseClicked(evt);
             }
         });
 
-        spider_man_img.setBackground(new java.awt.Color(255, 255, 255));
-        spider_man_img.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/spider_man.png"))); // NOI18N
-        spider_man_img.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        spider_man_img.setOpaque(true);
-        spider_man_img.addMouseListener(new java.awt.event.MouseAdapter() {
+        char6_img.setBackground(new java.awt.Color(255, 255, 255));
+        char6_img.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/char6.png"))); // NOI18N
+        char6_img.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        char6_img.setOpaque(true);
+        char6_img.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                spider_man_imgMouseClicked(evt);
+                char6_imgMouseClicked(evt);
             }
         });
 
@@ -168,70 +197,64 @@ public class DanceFloor extends javax.swing.JFrame {
         optionsLayout.setHorizontalGroup(
             optionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(optionsLayout.createSequentialGroup()
-                .addContainerGap(14, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(optionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, optionsLayout.createSequentialGroup()
-                        .addComponent(simpsons_img, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(char5_img, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(spider_man_img, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(char6_img, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, optionsLayout.createSequentialGroup()
-                        .addComponent(anime_img, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(char1_img, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(charmander_img, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(char2_img, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, optionsLayout.createSequentialGroup()
-                        .addComponent(duende_img, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(char3_img, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(shrek_img, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(char4_img, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         optionsLayout.setVerticalGroup(
             optionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(optionsLayout.createSequentialGroup()
                 .addGroup(optionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(anime_img, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(charmander_img, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(char1_img, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(char2_img, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(optionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(shrek_img, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(duende_img, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(char4_img, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(char3_img, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(optionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(simpsons_img, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(spider_man_img, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(char5_img, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(char6_img, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        botao_play.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        botao_play.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/play_music.png"))); // NOI18N
-        botao_play.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        botao_play.addMouseListener(new java.awt.event.MouseAdapter() {
+        button_play_stop.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        button_play_stop.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/stop_music.png"))); // NOI18N
+        button_play_stop.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        button_play_stop.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                botao_playMouseClicked(evt);
+                button_play_stopMouseClicked(evt);
             }
         });
 
-        botao_stop.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        botao_stop.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/stop_music.png"))); // NOI18N
-        botao_stop.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        botao_stop.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                botao_stopMouseClicked(evt);
-            }
-        });
-
-        jLabel4.setFont(new java.awt.Font("Leelawadee UI", 1, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Leelawadee UI", 1, 16)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Música");
+        jLabel4.setText("Músicas");
 
-        jComboBox1.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Eu me remexo muito", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setFont(new java.awt.Font("Leelawadee UI", 1, 14)); // NOI18N
+        jComboBox1.setForeground(new java.awt.Color(69, 0, 73));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Padrão", "Eu me remexo muito", "Beyonce", "Gangnam Style" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Leelawadee UI", 1, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Leelawadee UI", 1, 16)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Personagens");
 
@@ -241,23 +264,24 @@ public class DanceFloor extends javax.swing.JFrame {
             menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(title_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(options, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(menuLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(menuLayout.createSequentialGroup()
+                        .addGap(0, 55, Short.MAX_VALUE)
+                        .addGroup(menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuLayout.createSequentialGroup()
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(58, 58, 58))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuLayout.createSequentialGroup()
+                                .addComponent(button_play_stop, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuLayout.createSequentialGroup()
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(56, 56, 56))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuLayout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(58, 58, 58))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuLayout.createSequentialGroup()
-                        .addComponent(botao_play, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(36, 36, 36)
-                        .addComponent(botao_stop, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuLayout.createSequentialGroup()
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuLayout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(56, 56, 56))))
+                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         menuLayout.setVerticalGroup(
             menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -270,11 +294,9 @@ public class DanceFloor extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addGroup(menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(botao_stop, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botao_play, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(button_play_stop, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -298,48 +320,64 @@ public class DanceFloor extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void anime_imgMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_anime_imgMouseClicked
-        ThreadDance character = new ThreadDance(anime, this, 109, 150);
+    private void char1_imgMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_char1_imgMouseClicked
+        ThreadDance character = new ThreadDance(char1, this, 109, 150);
         character.start();
-    }//GEN-LAST:event_anime_imgMouseClicked
+    }//GEN-LAST:event_char1_imgMouseClicked
 
-    private void charmander_imgMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_charmander_imgMouseClicked
-        ThreadDance character = new ThreadDance(charmander, this,150 , 150);
+    private void char3_imgMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_char3_imgMouseClicked
+        ThreadDance character = new ThreadDance(char3, this, 109, 150);
         character.start();
-    }//GEN-LAST:event_charmander_imgMouseClicked
+    }//GEN-LAST:event_char3_imgMouseClicked
 
-    private void duende_imgMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_duende_imgMouseClicked
-        ThreadDance character = new ThreadDance(duende, this, 109, 150);
+    private void char4_imgMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_char4_imgMouseClicked
+        ThreadDance character = new ThreadDance(char4, this, 217, 173);
         character.start();
-    }//GEN-LAST:event_duende_imgMouseClicked
+    }//GEN-LAST:event_char4_imgMouseClicked
 
-    private void shrek_imgMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_shrek_imgMouseClicked
-        ThreadDance character = new ThreadDance(shrek, this, 217, 173);
+    private void char5_imgMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_char5_imgMouseClicked
+        ThreadDance character = new ThreadDance(char5, this, 66, 133);
         character.start();
-    }//GEN-LAST:event_shrek_imgMouseClicked
+    }//GEN-LAST:event_char5_imgMouseClicked
 
-    private void simpsons_imgMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_simpsons_imgMouseClicked
-        ThreadDance character = new ThreadDance(simpsons, this, 66, 133);
+    private void char6_imgMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_char6_imgMouseClicked
+        ThreadDance character = new ThreadDance(char6, this, 150, 150);
         character.start();
-    }//GEN-LAST:event_simpsons_imgMouseClicked
-
-    private void spider_man_imgMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_spider_man_imgMouseClicked
-        ThreadDance character = new ThreadDance(spider_man, this, 150, 150);
-        character.start();
-    }//GEN-LAST:event_spider_man_imgMouseClicked
-
-    private void botao_playMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botao_playMouseClicked
-        ThreadMusic music = new ThreadMusic("EuMeRemexoMuito", true);
-        music.start();
-    }//GEN-LAST:event_botao_playMouseClicked
-
-    private void botao_stopMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botao_stopMouseClicked
-        ThreadMusic music = new ThreadMusic("EuMeRemexoMuito", false);
-    }//GEN-LAST:event_botao_stopMouseClicked
+    }//GEN-LAST:event_char6_imgMouseClicked
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
+        if (jComboBox1.getSelectedIndex() == 0) {
+            this.changeSelectedMusic("./music/eletronic.wav");
+        } else if (jComboBox1.getSelectedIndex() == 1) {
+            this.changeSelectedMusic("./music/remexo_muito.wav");
+        } else if (jComboBox1.getSelectedIndex() == 2) {
+            this.changeSelectedMusic("./music/beyonce.wav");
+        } else if (jComboBox1.getSelectedIndex() == 3) {
+            this.changeSelectedMusic("./music/gangnam_style.wav");
+        }
     }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void button_play_stopMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button_play_stopMouseClicked
+        if (musicEnable) {
+            music.stopAudio();
+            musicEnable = false;
+            ClassLoader cl = getClass().getClassLoader();
+            File icon = new File(cl.getResource("./img/play_music.png").getFile());
+            button_play_stop.setIcon(new ImageIcon(icon.getPath()));
+        } else {
+            music = new ThreadMusic(musicSelected.getName(), musicSelected.getPath());
+            music.start();
+            musicEnable = true;
+            ClassLoader cl = getClass().getClassLoader();
+            File icon = new File(cl.getResource("./img/stop_music.png").getFile());
+            button_play_stop.setIcon(new ImageIcon(icon.getPath()));
+        }
+    }//GEN-LAST:event_button_play_stopMouseClicked
+
+    private void char2_imgMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_char2_imgMouseClicked
+        ThreadDance character = new ThreadDance(char2, this, 150, 150);
+        character.start();
+    }//GEN-LAST:event_char2_imgMouseClicked
 
     /**
      * @param args the command line arguments
@@ -377,14 +415,19 @@ public class DanceFloor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel anime;
-    private javax.swing.JLabel anime_img;
-    private javax.swing.JLabel botao_play;
-    private javax.swing.JLabel botao_stop;
-    private javax.swing.JLabel charmander;
-    private javax.swing.JLabel charmander_img;
-    private javax.swing.JLabel duende;
-    private javax.swing.JLabel duende_img;
+    private javax.swing.JLabel button_play_stop;
+    private javax.swing.JLabel char1;
+    private javax.swing.JLabel char1_img;
+    private javax.swing.JLabel char2;
+    private javax.swing.JLabel char2_img;
+    private javax.swing.JLabel char3;
+    private javax.swing.JLabel char3_img;
+    private javax.swing.JLabel char4;
+    private javax.swing.JLabel char4_img;
+    private javax.swing.JLabel char5;
+    private javax.swing.JLabel char5_img;
+    private javax.swing.JLabel char6;
+    private javax.swing.JLabel char6_img;
     private javax.swing.JLabel floor;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel3;
@@ -393,12 +436,6 @@ public class DanceFloor extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel menu;
     private javax.swing.JPanel options;
-    private javax.swing.JLabel shrek;
-    private javax.swing.JLabel shrek_img;
-    private javax.swing.JLabel simpsons;
-    private javax.swing.JLabel simpsons_img;
-    private javax.swing.JLabel spider_man;
-    private javax.swing.JLabel spider_man_img;
     private javax.swing.JPanel title_panel;
     // End of variables declaration//GEN-END:variables
 }
