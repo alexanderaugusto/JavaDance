@@ -11,15 +11,10 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-/**
- *
- * @author Alexa
- */
 public class ThreadDance extends Thread {
 
     private JLabel character;
-    private JFrame pista;
-    private boolean fim = false;
+    private JFrame pista;    
     private int tamanhoX;
     private int tamanhoY;
 
@@ -68,7 +63,7 @@ public class ThreadDance extends Thread {
                     pista.repaint();
                 }
 
-                // Mexe no eixo X
+                // Mexe no eixo Y
                 if (character.getY() < pista.getHeight() && character.getY() > 300) {
 
                     if (n > 4 && n <= 6) {
