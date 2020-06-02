@@ -4,16 +4,7 @@
  * and open the template in the editor.
  */
 package dance;
-
-/**
- *
- * @author Alexa
- */
-public class Dance {
-
-    /**
-     * @param args the command line arguments
-     */
+public class Dance {  
     public static void main(String[] args) {
        new DanceFloor().setVisible(true);
     }

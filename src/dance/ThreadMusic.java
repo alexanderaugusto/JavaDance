@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dance;
 
 import java.io.File;
@@ -13,11 +8,6 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-/**
- * Classe responsável pelo áudio do jogo.
- *
- * @author Henrique Barcia Lang
- */
 public class ThreadMusic extends Thread {
 
     private String audioName;
@@ -55,8 +45,8 @@ public class ThreadMusic extends Thread {
             clip.open(inputStream);
 
             clip.start();
-
             Thread.sleep(10000);
+            
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException ex) {
             System.out.println("Error when playing an audio... " + ex.getMessage());
         } finally {

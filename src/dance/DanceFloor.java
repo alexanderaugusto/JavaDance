@@ -12,10 +12,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.TransferHandler;
 
-/**
- *
- * @author Alexa
- */
 public class DanceFloor extends javax.swing.JFrame {
 
     ThreadMusic music;
